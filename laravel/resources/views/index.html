@@ -135,6 +135,10 @@
             <button id="POST" class="btn btn--orange">リクエストを送信</button>
         </div>
         <script>
+            // URLにoriginを足す処理
+            document
+                .querySelectorAll("#url")
+                .forEach((el) => (el.value = location.origin + el.value));
             // GETのデータ送信
             document.querySelectorAll("button#GET").forEach((el) => {
                 el.addEventListener("click", ({ target }) => {
