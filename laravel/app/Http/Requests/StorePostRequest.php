@@ -30,4 +30,12 @@ class StorePostRequest extends FormRequest
             // "user_id" => ""
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'post_text.required' => 'post_text は必須です',
+            'post_text.max' => 'post_text は64文字以内で入力してください',
+        ];
+    }
 }
