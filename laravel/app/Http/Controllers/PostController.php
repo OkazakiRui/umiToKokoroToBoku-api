@@ -30,9 +30,13 @@ class PostController extends Controller
         //
     }
 
-    public function getRandomPost()
+    public function getRandomPost($limit = 1)
     {
-        return Post::inRandomOrder()->first();
+        return Post::inRandomOrder()->limit($limit)->get();
     }
+    // public function getRandomPost()
+    // {
+    //     return Post::inRandomOrder()->first();
+    // }
 
 }
