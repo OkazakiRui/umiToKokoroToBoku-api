@@ -58,26 +58,29 @@
             <h3>全件取得</h3>
             <input type="text" value="/api/posts" />
             <textarea rows="10" id="result" placeholder="result"></textarea>
-            <button class="btn btn--orange">リクエストを送信</button>
+            <button id="GET" class="btn btn--orange">リクエストを送信</button>
         </div>
         <div>
             <h3>ランダムで1件取得</h3>
             <input type="text" value="/api/posts/getRandomPost" />
             <textarea rows="10" id="result" placeholder="result"></textarea>
-            <button class="btn btn--orange">リクエストを送信</button>
+            <button id="GET" class="btn btn--orange">リクエストを送信</button>
         </div>
         <div>
             <h3>ランダムで数件件取得</h3>
             <input type="text" value="/api/posts/getRandomPosts/3" />
             <textarea rows="10" id="result" placeholder="result"></textarea>
-            <button class="btn btn--orange">リクエストを送信</button>
+            <button id="GET" class="btn btn--orange">リクエストを送信</button>
         </div>
         <script>
-            document.querySelectorAll("button").forEach((el) => {
+            document.querySelectorAll("button#GET").forEach((el) => {
                 el.addEventListener("click", ({ target }) => {
                     fetch(target.parentElement.children[1].value)
                         .then((result) => result.json())
                         .then((result) => {
+                            console.log(
+                                target.parentElement.children[0].innerHTML
+                            );
                             console.log(result);
                             target.parentElement.children[2].innerHTML =
                                 JSON.stringify(result);
