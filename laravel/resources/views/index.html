@@ -100,7 +100,7 @@
             <button id="GET" class="btn btn--orange">リクエストを送信</button>
         </div>
         <div>
-            <h2>1件登録する [POST]</h2>
+            <h2>ボトルメールを1件登録する [POST]</h2>
             <strong>URL</strong>
             <input type="text" value="/api/posts" id="url" />
             <br />
@@ -168,7 +168,6 @@
                         method: "POST",
                         body: JSON.stringify(data),
                     };
-                    console.log(parms);
                     fetch(
                         target.parentElement.querySelector("#url").value,
                         parms
