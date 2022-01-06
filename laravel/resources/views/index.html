@@ -5,10 +5,85 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <title>Document</title>
+        <style>
+            *,
+            *:before,
+            *:after {
+                -webkit-box-sizing: inherit;
+                box-sizing: inherit;
+            }
+            html {
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+                font-size: 62.5%;
+            }
+            div,
+            input,
+            textarea {
+                font-size: 1.6rem;
+                line-height: 1.5;
+                display: block;
+                width: 100%;
+                resize: none;
+            }
+            .btn {
+                cursor: pointer;
+                border: none;
+                font-size: 1.6rem;
+                font-weight: 700;
+                line-height: 1.5;
+                display: block;
+                width: 100%;
+                padding: 1rem 0;
+                transition: all 0.3s;
+                text-align: center;
+                color: #212529;
+                border-radius: 0.5rem;
+            }
+            .btn--orange {
+                color: #fff;
+                background-color: #eb6100;
+            }
+            .btn--orange:hover {
+                color: #fff;
+                background: #f56500;
+            }
+            div {
+                padding: 0 1rem 1rem 1rem;
+            }
+        </style>
     </head>
     <body>
-        <input type="text" value="/api/posts/getRandomPost" />
-        <button>送信</button>
-        <textarea cols="30" rows="10"></textarea>
+        <div>
+            <h3>全件取得</h3>
+            <input type="text" value="/api/posts" />
+            <textarea rows="10" id="result" placeholder="result"></textarea>
+            <button class="btn btn--orange">リクエストを送信</button>
+        </div>
+        <div>
+            <h3>ランダムで1件取得</h3>
+            <input type="text" value="/api/posts/getRandomPost" />
+            <textarea rows="10" id="result" placeholder="result"></textarea>
+            <button class="btn btn--orange">リクエストを送信</button>
+        </div>
+        <div>
+            <h3>ランダムで数件件取得</h3>
+            <input type="text" value="/api/posts/getRandomPosts/3" />
+            <textarea rows="10" id="result" placeholder="result"></textarea>
+            <button class="btn btn--orange">リクエストを送信</button>
+        </div>
+        <script>
+            document.querySelectorAll("button").forEach((el) => {
+                el.addEventListener("click", ({ target }) => {
+                    fetch(target.parentElement.children[1].value)
+                        .then((result) => result.json())
+                        .then((result) => {
+                            console.log(result);
+                            target.parentElement.children[2].innerHTML =
+                                JSON.stringify(result);
+                        });
+                });
+            });
+        </script>
     </body>
 </html>
