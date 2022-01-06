@@ -13,7 +13,7 @@ class StorePostRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,10 @@ class StorePostRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "post_text" => "required|max:64",
+            // TODO: 差出人の名前が必要な場合はnullを許容しないようにする
+            // "user_name" => "",
+            // "user_id" => ""
         ];
     }
 }

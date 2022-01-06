@@ -15,6 +15,10 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
+            $table->string("post_text");
+            // TODO: 差出人の名前が必要な場合はnullを許容しないようにする
+            $table->string("user_name")->nullable();
+            $table->bigInteger("user_id")->nullable();
             $table->timestamps();
         });
     }
