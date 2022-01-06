@@ -55,35 +55,133 @@
     </head>
     <body>
         <div>
-            <h3>全件取得</h3>
-            <input type="text" value="/api/posts" />
-            <textarea rows="10" id="result" placeholder="result"></textarea>
+            <h2>全件取得 [GET]</h2>
+            <strong>URL</strong>
+            <input type="text" value="/api/posts" id="url" />
+            <br />
+            <strong>返ってくるデータ</strong>
+            <textarea
+                rows="10"
+                id="result"
+                placeholder="result"
+                disabled
+            ></textarea>
+            <br />
             <button id="GET" class="btn btn--orange">リクエストを送信</button>
         </div>
         <div>
-            <h3>ランダムで1件取得</h3>
-            <input type="text" value="/api/posts/getRandomPost" />
-            <textarea rows="10" id="result" placeholder="result"></textarea>
+            <h2>ランダムで1件取得 [GET]</h2>
+            <strong>URL</strong>
+            <input type="text" value="/api/posts/getRandomPost" id="url" />
+            <br />
+            <strong>返ってくるデータ</strong>
+            <textarea
+                rows="10"
+                id="result"
+                placeholder="result"
+                disabled
+            ></textarea>
+            <br />
             <button id="GET" class="btn btn--orange">リクエストを送信</button>
         </div>
         <div>
-            <h3>ランダムで数件件取得</h3>
-            <input type="text" value="/api/posts/getRandomPosts/3" />
-            <textarea rows="10" id="result" placeholder="result"></textarea>
+            <h2>ランダムで数件件取得 [GET]</h2>
+            <strong>URL</strong>
+            <input type="text" value="/api/posts/getRandomPosts/3" id="url" />
+            <br />
+            <strong>返ってくるデータ</strong>
+            <textarea
+                rows="10"
+                id="result"
+                placeholder="result"
+                disabled
+            ></textarea>
+            <br />
             <button id="GET" class="btn btn--orange">リクエストを送信</button>
+        </div>
+        <div>
+            <h2>1件登録する [POST]</h2>
+            <strong>URL</strong>
+            <input type="text" value="/api/posts" id="url" />
+            <br />
+            <strong>入力情報</strong>
+            <input
+                class="data"
+                name="user_name"
+                type="text"
+                placeholder="user_nameを入力 [任意]"
+            />
+            <input
+                class="data"
+                name="user_id"
+                type="text"
+                placeholder="user_idを入力 [任意]"
+            />
+            <textarea
+                class="data"
+                name="post_text"
+                rows="10"
+                placeholder="post_textを入力 [必須]"
+            ></textarea>
+            <br />
+            <strong>返ってくるデータ</strong>
+            <textarea
+                rows="10"
+                id="result"
+                placeholder="result"
+                disabled
+            ></textarea>
+            <br />
+            <button id="POST" class="btn btn--orange">リクエストを送信</button>
         </div>
         <script>
+            // GETのデータ送信
             document.querySelectorAll("button#GET").forEach((el) => {
                 el.addEventListener("click", ({ target }) => {
-                    fetch(target.parentElement.children[1].value)
+                    fetch(target.parentElement.querySelector("#url").value)
+                        .then((result) => result.json())
+                        .then((result) => {
+                            console.log(
+                                target.parentElement.querySelector("h2")
+                                    .innerHTML
+                            );
+                            console.log(result);
+                            target.parentElement.querySelector(
+                                "#result"
+                            ).innerHTML = JSON.stringify(result);
+                        });
+                });
+            });
+            // POSTのデータ送信
+            document.querySelectorAll("button#POST").forEach((el) => {
+                el.addEventListener("click", ({ target }) => {
+                    const data = {};
+                    target.parentElement
+                        .querySelectorAll(".data")
+                        .forEach((el) => {
+                            data[el.name] = el.value;
+                        });
+                    const parms = {
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        method: "POST",
+                        body: JSON.stringify(data),
+                    };
+                    console.log(parms);
+                    fetch(
+                        target.parentElement.querySelector("#url").value,
+                        parms
+                    )
                         .then((result) => result.json())
                         .then((result) => {
                             console.log(
                                 target.parentElement.children[0].innerHTML
                             );
                             console.log(result);
-                            target.parentElement.children[2].innerHTML =
-                                JSON.stringify(result);
+                            target.parentElement.querySelector(
+                                "#result"
+                            ).innerHTML = JSON.stringify(result);
                         });
                 });
             });
