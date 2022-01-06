@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get("/posts/getRandomPost", [PostController::class, "getRandomPost"]);
 Route::apiResource("posts", PostController::class);
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
